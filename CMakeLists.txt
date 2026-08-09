@@ -31,8 +31,6 @@ if(MSVC) # TODO: non-msvc
     )
 endif()
 
-add_subdirectory(Dependencies/imgui)
-
 add_library(implot)
 file(GLOB PROJECT_SOURCES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.h
@@ -43,6 +41,8 @@ target_include_directories(implot PRIVATE
     ${CMAKE_SOURCE_DIR}/Dependencies/imgui/
 )
 
-if(NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+    add_subdirectory(Dependencies/imgui)
+else()
     set_target_properties(implot PROPERTIES FOLDER Dependencies)
 endif()
